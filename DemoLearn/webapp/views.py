@@ -438,6 +438,7 @@ def delete_user(request, roll_no,branch_id):
         sel_stu_data.delete()
         branch_id=branch_id
         return render(request,'delete_message_page.html',{'branch_id':branch_id,'batch':batch})
+  
 def student(request):
     if request.method=='POST':
         Student_img = request.FILES['student_img']

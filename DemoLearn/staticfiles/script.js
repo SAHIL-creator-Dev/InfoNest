@@ -1,12 +1,33 @@
-const toggleBtn = document.querySelector(".toggle_btn");
-const toggleBtnIcon = document.querySelector(".toggle_btn i");
-const dropdownMenu = document.querySelector(".dropdown_menu");
-toggleBtn.onclick = function () {
-  dropdownMenu.classList.toggle("open");
-  const isOpen = dropdownMenu.classList.contains("open");
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.querySelector(".home_nav_toggle");
+  const navLinks = document.querySelector(".home_page_nav-links");
 
-  toggleBtnIcon.classList = isOpen ? "fa-solid fa-xmark" : "fa-solid fa-bars";
-};
+  // Navbar toggle
+  toggleBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+    toggleBtn.innerHTML = navLinks.classList.contains("open")
+      ? "&times;"
+      : "&#9776;";
+  });
+
+  // Dropdown toggle for mobile
+  const dropdownParents = document.querySelectorAll(
+    ".home_page_nav-links > li > a"
+  );
+
+  dropdownParents.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      // Only activate on mobile width
+      if (window.innerWidth <= 900) {
+        const submenu = link.nextElementSibling;
+        if (submenu && submenu.classList.contains("cources_menu")) {
+          e.preventDefault(); // prevent page jump
+          submenu.classList.toggle("submenu-open");
+        }
+      }
+    });
+  });
+});
 
 const slider = document.querySelector(".slider");
 

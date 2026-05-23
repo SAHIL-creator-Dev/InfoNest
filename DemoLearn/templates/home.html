@@ -6,43 +6,51 @@ endblock %} {% endcomment %}
 {% endblock %}
 
 <nav class="home_page_navbar">
-    <div class="home_page_logo">
-        <img src="{% static "logo1.png" %}" alt="Logo">
-        InfoNest
-    </div>
-    <ul class="home_page_nav-links">
-        <li><a href="/">Home</a></li>
-        <li><a>About <i style="padding-left: 3px" class="fas fa-caret-down"></i></a>
-          <div class="cources_menu">
-            <ul>
-              <li><a href="/about_us">About Institute</a></li>
-              <li><a href="/staff">Staff Member</a></li>
-              <li><a href="/gallery">Gallery</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a>Courses <i style="padding-left: 3px" class="fas fa-caret-down"></i></a>
-          <div class="cources_menu" >
-            <ul>
-              <li><a href="">Civil Engineering</a></li>
-              <li><a href="">Electrical Engineering</a></li>
-              <li><a href="">Electronics</a></li>
-              <li><a href="/course_detail_cse">Computer Science & Engineering</a></li>
-              <li><a href="/course_detail_it">Information Technology</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a>Student Profile <i style="padding-left: 3px" class="fas fa-caret-down"></i></a>
-          <div class="cources_menu">
-            <ul>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/register">Sign-up</a></li>
-            </ul>
-          </div>
-        </li>
-        <li><a href="/student" target="_blank">Student Registration</a></li>
-    </ul>
+  <div class="home_page_logo">
+    <img src="{% static 'logo1.png' %}" alt="Logo">
+    InfoNest
+  </div>
+
+  <ul class="home_page_nav-links">
+    <li><a href="">Home</a></li>
+    <li>
+      <a>About <i class="fas fa-caret-down" style="padding-left:3px"></i></a>
+      <div class="cources_menu">
+        <ul>
+          <li><a href="/about_us">About Institute</a></li>
+          <li><a href="/staff">Staff Member</a></li>
+          <li><a href="/gallery">Gallery</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a>Courses <i class="fas fa-caret-down" style="padding-left:3px"></i></a>
+      <div class="cources_menu">
+        <ul>
+          <li><a href="">Civil Engineering</a></li>
+          <li><a href="">Electrical Engineering</a></li>
+          <li><a href="">Electronics</a></li>
+          <li><a href="/course_detail_cse">Computer Science & Engineering</a></li>
+          <li><a href="/course_detail_it">Information Technology</a></li>
+        </ul>
+      </div>
+    </li>
+    <li>
+      <a>Student Profile <i class="fas fa-caret-down" style="padding-left:3px"></i></a>
+      <div class="cources_menu">
+        <ul>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Sign-up</a></li>
+        </ul>
+      </div>
+    </li>
+    <li><a href="/student" target="_blank">Student Registration</a></li>
+  </ul>
+
+  <div class="home_nav_toggle">&#9776;</div>
 </nav>
+
+
     
     <div class="home_page_slider">
         <div class="home_page_slide active">
@@ -224,5 +232,38 @@ Your all-in-one academic companion, InfoNest is a dynamic web portal designed to
     </div>
     </div>
     </div>
-    
+    <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.querySelector(".home_nav_toggle");
+  const navLinks = document.querySelector(".home_page_nav-links");
+
+  // ✅ Navbar toggle for mobile
+  toggleBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+    toggleBtn.innerHTML = navLinks.classList.contains("open")
+      ? "&times;"
+      : "&#9776;";
+  });
+
+  // ✅ Dropdown toggle for mobile
+  const dropdownParents = document.querySelectorAll(".home_page_nav-links > li > a");
+
+  dropdownParents.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      const submenu = link.nextElementSibling; // get the next <div> after <a>
+
+      // Check if this link actually has a submenu
+      if (submenu && submenu.classList.contains("cources_menu")) {
+        // On mobile, prevent normal click and toggle submenu
+        if (window.innerWidth <= 900) {
+          e.preventDefault(); // stop navigation
+          submenu.classList.toggle("submenu-open");
+        }
+      }
+    });
+  });
+});
+
+</script>
+
 {% endblock %}
