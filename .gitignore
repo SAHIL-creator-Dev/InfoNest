@@ -100,3 +100,19 @@ docs/_build/
 *.tmp
 *.bak
 *.old
+
+# Auto-generated
+staticfiles/
+build/
+dist/
+*.spec
+
+# Database
+db.sqlite3
+
+# Migrations
+*/migrations/
+!*/migrations/__init__.py
+
+# VSCode
+.vscode/
